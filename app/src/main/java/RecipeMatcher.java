@@ -5,10 +5,18 @@ import java.util.Locale;
 
 public class RecipeMatcher {
 
+    /**
+     * Checks whether the user has enough of EVERY ingredient
+     * required by the recipe.
+     *
+     * A recipe will only match when:
+     * 1. Every required ingredient exists in the pantry.
+     * 2. The available quantity is enough.
+     * 3. Compatible units can be converted.
+     */
     public static boolean canMakeRecipe(
             Recipe recipe,
-            List<FoodItem> pantry
-    ) {
+            List<FoodItem> pantry) {
 
         if (recipe == null || pantry == null) {
             return false;
@@ -22,22 +30,25 @@ public class RecipeMatcher {
 
                 if (!sameName(
                         food.getName(),
-                        required.getName()
-                )) {
+                        required.getName())) {
                     continue;
                 }
 
-                double convertedQuantity = convertQuantity(
-                        food.getQuantity(),
-                        food.getUnit(),
-                        required.getUnit()
-                );
+                double convertedQuantity =
+                        convertQuantity(
+                                food.getQuantity(),
+                                food.getUnit(),
+                                required.getUnit()
+                        );
 
+                // -1 means the units cannot be converted.
                 if (convertedQuantity >= 0) {
                     availableQuantity += convertedQuantity;
                 }
             }
 
+            // If even one ingredient is missing or insufficient,
+            // the entire recipe cannot be made.
             if (availableQuantity + 0.000001
                     < required.getQuantity()) {
 
@@ -48,10 +59,12 @@ public class RecipeMatcher {
         return true;
     }
 
+    /**
+     * Compares ingredient names without being case-sensitive.
+     */
     private static boolean sameName(
             String first,
-            String second
-    ) {
+            String second) {
 
         if (first == null || second == null) {
             return false;
@@ -61,11 +74,22 @@ public class RecipeMatcher {
                 .equalsIgnoreCase(second.trim());
     }
 
+    /**
+     * Converts compatible measurement units.
+     *
+     * Supported conversions:
+     * g <-> kg
+     * ml <-> l
+     *
+     * If units are already the same, the original
+     * quantity is returned.
+     *
+     * Returns -1 when the units are incompatible.
+     */
     private static double convertQuantity(
-            double quantity,
+            double value,
             String fromUnit,
-            String toUnit
-    ) {
+            String toUnit) {
 
         String from = fromUnit == null
                 ? ""
@@ -75,26 +99,40 @@ public class RecipeMatcher {
                 ? ""
                 : toUnit.trim().toLowerCase(Locale.ROOT);
 
+        // Same unit
         if (from.equals(to)) {
-            return quantity;
+            return value;
         }
 
-        if (from.equals("kg") && to.equals("g")) {
-            return quantity * 1000;
+        // Kilograms -> grams
+        if (from.equals("kg")
+                && to.equals("g")) {
+
+            return value * 1000.0;
         }
 
-        if (from.equals("g") && to.equals("kg")) {
-            return quantity / 1000;
+        // Grams -> kilograms
+        if (from.equals("g")
+                && to.equals("kg")) {
+
+            return value / 1000.0;
         }
 
-        if (from.equals("l") && to.equals("ml")) {
-            return quantity * 1000;
+        // Litres -> millilitres
+        if (from.equals("l")
+                && to.equals("ml")) {
+
+            return value * 1000.0;
         }
 
-        if (from.equals("ml") && to.equals("l")) {
-            return quantity / 1000;
+        // Millilitres -> litres
+        if (from.equals("ml")
+                && to.equals("l")) {
+
+            return value / 1000.0;
         }
 
+        // Unsupported conversion
         return -1;
     }
 }

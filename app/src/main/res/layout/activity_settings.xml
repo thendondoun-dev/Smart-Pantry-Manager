@@ -1,83 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#0F0F0F"
-    android:padding="24dp">
+    android:background="#0F0F0F">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Settings"
-        android:textColor="#FF2D75"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:orientation="vertical"
+        android:padding="24dp">
 
-    <TextView
-        android:id="@+id/tvSettingsAppName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:text="Smart Pantry Manager"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:textColor="#FF2D75"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tvSettingsVersion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Version 1.0"
-        android:textColor="#BDBDBD"
-        android:textSize="15sp" />
+        <TextView
+            android:id="@+id/tvSettingsAppName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="Smart Pantry Manager"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="ABOUT THE APP"
-        android:textColor="#FF8FB3"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tvSettingsVersion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Version 1.0"
+            android:textColor="#BDBDBD"
+            android:textSize="15sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Smart Pantry Manager helps you manage food items, track quantities and expiry dates, and discover recipes that can be prepared using the ingredients available in your pantry."
-        android:textColor="#FFFFFF"
-        android:textSize="15sp"
-        android:lineSpacingExtra="5dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="ABOUT THE APP"
+            android:textColor="#FF8FB3"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="FEATURES"
-        android:textColor="#FF8FB3"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Smart Pantry Manager helps you manage food items, track quantities and expiry dates, and discover recipes that can be prepared using the ingredients available in your pantry."
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:lineSpacingExtra="5dp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="• Add and manage pantry ingredients&#10;• Edit and delete food items&#10;• Track quantities and units&#10;• Track expiry dates&#10;• Get recipe suggestions&#10;• View recipe ingredients and instructions"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp"
-        android:lineSpacingExtra="5dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="FEATURES"
+            android:textColor="#FF8FB3"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btnBackSettings"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginTop="35dp"
-        android:backgroundTint="#FF2D75"
-        android:text="BACK"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="• Add and manage pantry ingredients&#10;• Edit and delete food items&#10;• Track quantities and units&#10;• Track expiry dates&#10;• Get recipe suggestions&#10;• View recipe ingredients and instructions"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:lineSpacingExtra="5dp" />
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="Developed as an Android application using Java and SQLite."
+            android:textColor="#BDBDBD"
+            android:textSize="14sp"
+            android:gravity="center" />
+
+        <Button
+            android:id="@+id/btnBackSettings"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="35dp"
+            android:backgroundTint="#FF2D75"
+            android:text="BACK"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</ScrollView>

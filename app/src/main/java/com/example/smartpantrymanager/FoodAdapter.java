@@ -19,18 +19,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class FoodAdapter
-        extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
+public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
 
     private final List<FoodItem> foodItems;
     private final DatabaseHelper databaseHelper;
     private final Context context;
 
-    public FoodAdapter(
-            Context context,
-            List<FoodItem> foodItems,
-            DatabaseHelper databaseHelper
-    ) {
+    public FoodAdapter(Context context,
+                       List<FoodItem> foodItems,
+                       DatabaseHelper databaseHelper) {
 
         this.context = context;
         this.foodItems = foodItems;
@@ -41,16 +38,10 @@ public class FoodAdapter
     @Override
     public FoodViewHolder onCreateViewHolder(
             @NonNull ViewGroup parent,
-            int viewType
-    ) {
+            int viewType) {
 
-        View view =
-                LayoutInflater.from(parent.getContext())
-                        .inflate(
-                                R.layout.item_food,
-                                parent,
-                                false
-                        );
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_food, parent, false);
 
         return new FoodViewHolder(view);
     }
@@ -58,33 +49,26 @@ public class FoodAdapter
     @Override
     public void onBindViewHolder(
             @NonNull FoodViewHolder holder,
-            int position
-    ) {
+            int position) {
 
-        FoodItem foodItem =
-                foodItems.get(position);
+        FoodItem food = foodItems.get(position);
 
-        holder.tvFoodName.setText(
-                foodItem.getName()
-        );
+        holder.tvFoodName.setText(food.getName());
 
         holder.tvFoodQuantity.setText(
                 "Quantity: " +
-                        foodItem.getQuantity() +
+                        food.getQuantity() +
                         " " +
-                        foodItem.getUnit()
+                        food.getUnit()
         );
 
         holder.tvFoodCategory.setText(
-                "Category: " +
-                        foodItem.getCategory()
+                "Category: " + food.getCategory()
         );
 
-        String expiryDate =
-                foodItem.getExpiryDate();
+        String expiry = food.getExpiryDate();
 
-        if (expiryDate == null ||
-                expiryDate.trim().isEmpty()) {
+        if (expiry == null || expiry.trim().isEmpty()) {
 
             holder.tvFoodExpiry.setText(
                     "Expiry: Not specified"
@@ -94,21 +78,18 @@ public class FoodAdapter
 
             checkExpiryStatus(
                     holder.tvFoodExpiry,
-                    expiryDate
+                    expiry
             );
         }
 
         holder.btnEditFood.setOnClickListener(v -> {
 
             Intent intent =
-                    new Intent(
-                            context,
-                            EditFoodActivity.class
-                    );
+                    new Intent(context, EditFoodActivity.class);
 
             intent.putExtra(
                     "food_id",
-                    foodItem.getId()
+                    food.getId()
             );
 
             context.startActivity(intent);
@@ -120,7 +101,7 @@ public class FoodAdapter
                     .setTitle("Delete Food Item")
                     .setMessage(
                             "Are you sure you want to delete " +
-                                    foodItem.getName() +
+                                    food.getName() +
                                     "?"
                     )
                     .setPositiveButton(
@@ -128,10 +109,9 @@ public class FoodAdapter
                             (dialog, which) -> {
 
                                 boolean deleted =
-                                        databaseHelper
-                                                .deleteFoodItem(
-                                                        foodItem.getId()
-                                                );
+                                        databaseHelper.deleteFoodItem(
+                                                food.getId()
+                                        );
 
                                 if (deleted) {
 
@@ -176,35 +156,25 @@ public class FoodAdapter
 
     private void checkExpiryStatus(
             TextView textView,
-            String expiryDate
-    ) {
+            String expiryDate) {
 
-        SimpleDateFormat dateFormat =
+        SimpleDateFormat format =
                 new SimpleDateFormat(
                         "yyyy-MM-dd",
                         Locale.getDefault()
                 );
 
-        dateFormat.setLenient(false);
+        format.setLenient(false);
 
         try {
 
-            Date expiry =
-                    dateFormat.parse(expiryDate);
+            Date expiry = format.parse(expiryDate);
 
             if (expiry == null) {
                 return;
             }
 
             Date today = new Date();
-
-            long difference =
-                    expiry.getTime() -
-                            today.getTime();
-
-            long daysRemaining =
-                    difference /
-                            (1000 * 60 * 60 * 24);
 
             if (expiry.before(today)) {
 
@@ -215,38 +185,52 @@ public class FoodAdapter
                 );
 
                 textView.setTextColor(
-                        0xFFFF5252
-                );
-
-            } else if (daysRemaining <= 3) {
-
-                textView.setText(
-                        "Expiry: " +
-                                expiryDate +
-                                " ⚠ Expires soon"
-                );
-
-                textView.setTextColor(
-                        0xFFFF9800
+                        0xFFD32F2F
                 );
 
             } else {
 
-                textView.setText(
-                        "Expiry: " +
-                                expiryDate
-                );
+                long difference =
+                        expiry.getTime() -
+                                today.getTime();
 
-                textView.setTextColor(
-                        0xFF69F0AE
-                );
+                long days =
+                        difference /
+                                (1000 * 60 * 60 * 24);
+
+                if (days <= 3) {
+
+                    textView.setText(
+                            "Expiry: " +
+                                    expiryDate +
+                                    " ⚠ Expires soon"
+                    );
+
+                    textView.setTextColor(
+                            0xFFE65100
+                    );
+
+                } else {
+
+                    textView.setText(
+                            "Expiry: " +
+                                    expiryDate
+                    );
+
+                    textView.setTextColor(
+                            0xFF388E3C
+                    );
+                }
             }
 
         } catch (ParseException e) {
 
             textView.setText(
-                    "Expiry: " +
-                            expiryDate
+                    "Expiry: " + expiryDate
+            );
+
+            textView.setTextColor(
+                    0xFF888888
             );
         }
     }
@@ -268,8 +252,7 @@ public class FoodAdapter
         Button btnDeleteFood;
 
         public FoodViewHolder(
-                @NonNull View itemView
-        ) {
+                @NonNull View itemView) {
 
             super(itemView);
 

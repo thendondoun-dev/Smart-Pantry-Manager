@@ -19,11 +19,7 @@ public class RecipeAdapter
     private final Context context;
     private final List<Recipe> recipes;
 
-    public RecipeAdapter(
-            Context context,
-            List<Recipe> recipes
-    ) {
-
+    public RecipeAdapter(Context context, List<Recipe> recipes) {
         this.context = context;
         this.recipes = recipes;
     }
@@ -32,16 +28,10 @@ public class RecipeAdapter
     @Override
     public RecipeViewHolder onCreateViewHolder(
             @NonNull ViewGroup parent,
-            int viewType
-    ) {
+            int viewType) {
 
-        View view =
-                LayoutInflater.from(parent.getContext())
-                        .inflate(
-                                R.layout.item_recipe,
-                                parent,
-                                false
-                        );
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_recipe, parent, false);
 
         return new RecipeViewHolder(view);
     }
@@ -49,15 +39,11 @@ public class RecipeAdapter
     @Override
     public void onBindViewHolder(
             @NonNull RecipeViewHolder holder,
-            int position
-    ) {
+            int position) {
 
-        Recipe recipe =
-                recipes.get(position);
+        Recipe recipe = recipes.get(position);
 
-        holder.tvRecipeName.setText(
-                recipe.getName()
-        );
+        holder.tvRecipeName.setText(recipe.getName());
 
         holder.tvRecipeInfo.setText(
                 recipe.getDescription()
@@ -65,11 +51,25 @@ public class RecipeAdapter
 
         holder.btnViewRecipe.setOnClickListener(v -> {
 
-            Intent intent =
-                    new Intent(
-                            context,
-                            RecipeDetailActivity.class
-                    );
+            Intent intent = new Intent(
+                    context,
+                    RecipeDetailActivity.class
+            );
+
+            intent.putExtra(
+                    "recipe_id",
+                    recipe.getId()
+            );
+
+            context.startActivity(intent);
+        });
+
+        holder.itemView.setOnClickListener(v -> {
+
+            Intent intent = new Intent(
+                    context,
+                    RecipeDetailActivity.class
+            );
 
             intent.putExtra(
                     "recipe_id",
@@ -90,12 +90,10 @@ public class RecipeAdapter
 
         TextView tvRecipeName;
         TextView tvRecipeInfo;
-
         Button btnViewRecipe;
 
         public RecipeViewHolder(
-                @NonNull View itemView
-        ) {
+                @NonNull View itemView) {
 
             super(itemView);
 

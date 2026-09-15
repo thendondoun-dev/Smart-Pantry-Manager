@@ -19,36 +19,25 @@ The application allows users to:
 - View suggested recipes
 - View recipe ingredients
 - View recipe preparation instructions
-- Use a local SQLite database for persistent storage
+- Store information using a local SQLite database
 
 ---
 
 ## Technologies Used
 
-### Programming Language
-
-- Java
-
-### Development Environment
-
 - Android Studio
-
-### Database
-
+- Java
 - SQLite
-
-### Android Components
-
-- Activities
+- Android Activities
 - RecyclerView
 - Custom RecyclerView Adapters
-- Intents
 - SQLiteOpenHelper
-- AlertDialog
+- Intents
 - EditText
 - Button
 - Spinner
 - TextView
+- AlertDialog
 
 ---
 
@@ -66,19 +55,21 @@ Each food item can contain:
 - Category
 - Expiry date
 
-Users can also edit or delete existing pantry items.
+Users can also edit and delete existing pantry items.
 
 ---
 
 ### 2. Search Pantry
 
-The pantry screen includes a search function.
+The pantry screen includes a search feature.
 
-Users can search pantry items by:
+Users can search for pantry items using:
 
-- Name
+- Food name
 - Category
 - Unit
+
+This makes it easier to find ingredients when the pantry contains many items.
 
 ---
 
@@ -86,72 +77,94 @@ Users can search pantry items by:
 
 The application contains 20 preloaded recipes.
 
-Recipes are stored in the SQLite database.
+The application checks the ingredients stored in the pantry before displaying a recipe as a suggestion.
 
-The application checks the ingredients in the user's pantry before suggesting a recipe.
-
-A recipe is only suggested when the user has every required ingredient in a sufficient quantity.
+A recipe is only suggested when all required ingredients are available in sufficient quantities.
 
 ---
 
 ### 4. Recipe Matching
 
-The recipe matching system compares the required recipe ingredients with the ingredients stored in the pantry.
+The recipe matching system compares the ingredients required by a recipe with the ingredients available in the pantry.
 
 For example:
 
-If a recipe requires:
+Recipe requires:
 
-    Chicken - 200 g
+Chicken - 200 g
 
-and the pantry contains:
+Pantry contains:
 
-    Chicken - 250 g
+Chicken - 250 g
 
-the ingredient is considered available.
+Result:
+
+Recipe can be made.
 
 However, if the pantry contains:
 
-    Chicken - 100 g
+Chicken - 100 g
 
-the recipe will not be suggested.
+Result:
 
-The application also supports compatible unit conversions such as:
+Recipe cannot be made.
 
-- grams to kilograms
-- kilograms to grams
-- millilitres to litres
-- litres to millilitres
+The application does not suggest a recipe when an ingredient is missing or when the available quantity is insufficient.
+
+The application also supports compatible unit conversions.
+
+Supported conversions include:
+
+- kg to g
+- g to kg
+- L to ml
+- ml to L
 
 ---
 
-### 5. Recipe Details
+## 5. Recipe Details
 
 Users can select a suggested recipe to view:
 
 - Recipe name
-- Description
+- Recipe description
 - Required ingredients
 - Required quantities
+- Measurement units
 - Preparation instructions
 
 ---
 
-## Application Screens
+## 6. Expiry Dates
+
+Users can optionally add an expiry date to a pantry item.
+
+The pantry screen can indicate when an item:
+
+- Has not specified an expiry date
+- Is still valid
+- Is close to expiry
+- Has expired
+
+---
+
+# Application Screens
 
 The application contains multiple screens.
 
-### Main Dashboard
+## Main Dashboard
 
-Provides navigation to:
+The main dashboard provides navigation to:
 
 - My Pantry
 - Suggested Recipes
 - Settings
 
-### Pantry Screen
+---
 
-Allows users to:
+## My Pantry
+
+The pantry screen allows users to:
 
 - View pantry items
 - Search ingredients
@@ -159,215 +172,76 @@ Allows users to:
 - Edit ingredients
 - Delete ingredients
 
-### Add Food Screen
+---
 
-Allows users to enter a new pantry item.
+## Add Food Item
 
-### Edit Food Screen
+The Add Food Item screen allows users to enter a new pantry ingredient.
 
-Allows users to modify an existing pantry item.
+Users can enter:
 
-### Suggested Recipes Screen
-
-Displays recipes that can currently be made using the pantry.
-
-### Recipe Details Screen
-
-Displays the selected recipe's ingredients and preparation instructions.
-
-### Settings Screen
-
-Displays application information and version details.
+- Food name
+- Quantity
+- Unit
+- Category
+- Expiry date
 
 ---
 
-## Database Structure
+## Edit Food Item
 
-The application uses SQLite for local data storage.
-
-### Food Items Table
-
-The `food_items` table stores pantry information.
-
-Fields include:
-
-- id
-- name
-- quantity
-- unit
-- category
-- expiry_date
-
-### Recipes Table
-
-The `recipes` table stores recipe information.
-
-Fields include:
-
-- id
-- name
-- description
-- instructions
-
-### Recipe Ingredients Table
-
-The `recipe_ingredients` table stores the ingredients required by each recipe.
-
-Fields include:
-
-- id
-- recipe_id
-- ingredient_name
-- required_quantity
-- required_unit
+The Edit Food Item screen allows users to modify existing pantry information.
 
 ---
 
-## Preloaded Recipes
+## Suggested Recipes
 
-The application includes 20 recipes:
-
-1. Chicken Fried Rice
-2. Spaghetti Bolognese
-3. Vegetable Stir Fry
-4. Beef Stew
-5. Chicken Pasta
-6. Tuna Sandwich
-7. Omelette
-8. Pancakes
-9. French Toast
-10. Chicken Curry
-11. Beef Pasta
-12. Vegetable Pasta
-13. Rice and Beans
-14. Chicken Wrap
-15. Beef Burger
-16. Tomato Pasta
-17. Potato Curry
-18. Egg Fried Rice
-19. Chicken Sandwich
-20. Vegetable Soup
+The Suggested Recipes screen displays recipes that can currently be prepared using the ingredients in the pantry.
 
 ---
 
-## How to Run the Application
+## Recipe Details
 
-### Step 1
+The Recipe Details screen displays the selected recipe's:
 
-Open the project in Android Studio.
-
-### Step 2
-
-Allow Android Studio to complete Gradle synchronization.
-
-### Step 3
-
-Connect an Android device or start an Android Emulator.
-
-### Step 4
-
-Click the Run button in Android Studio.
-
-### Step 5
-
-The Smart Pantry Manager application will launch.
+- Name
+- Description
+- Ingredients
+- Quantities
+- Instructions
 
 ---
 
-## How to Use the Application
+## Settings
 
-### Adding Food
+The Settings screen provides application information such as:
 
-1. Open the application.
-2. Select **My Pantry**.
-3. Select **Add Food Item**.
-4. Enter the food name.
-5. Enter the quantity.
-6. Select the unit.
-7. Select the category.
-8. Optionally enter an expiry date.
-9. Select **Save Food**.
-
-### Editing Food
-
-1. Open **My Pantry**.
-2. Find the food item.
-3. Select **Edit**.
-4. Change the required information.
-5. Select **Update Food**.
-
-### Deleting Food
-
-1. Open **My Pantry**.
-2. Find the food item.
-3. Select **Delete**.
-4. Confirm the deletion.
-
-### Finding Recipes
-
-1. Add ingredients to the pantry.
-2. Return to the main dashboard.
-3. Select **Suggested Recipes**.
-4. The application checks the pantry.
-5. Only recipes that can be completely prepared are displayed.
-6. Select a recipe to view its details.
+- Application name
+- Application version
+- Technology used
 
 ---
 
-## Input Validation
+# Database
 
-The application validates user input when adding and editing food items.
+Smart Pantry Manager uses SQLite as its local database.
 
-Examples include:
+The database is managed using the `DatabaseHelper` class.
 
-- Food name cannot be empty.
-- Quantity must be entered.
-- Quantity must be a valid number.
-- Quantity must be greater than zero.
-- Required selections must be provided.
-
-This helps prevent invalid data from being stored in the database.
+The application uses three main tables.
 
 ---
 
-## Data Persistence
+## Food Items Table
 
-The application uses SQLite so that pantry information is stored locally on the device.
+The `food_items` table stores pantry ingredients.
 
-The data remains available when the user closes and reopens the application.
-
-The database is managed using the `DatabaseHelper` class, which extends `SQLiteOpenHelper`.
-
----
-
-## Project Structure
+Fields:
 
 ```text
-SmartPantryManager
-│
-├── app
-│   └── src
-│       └── main
-│           ├── java
-│           │   └── com.example.smartpantrymanager
-│           │       ├── MainActivity.java
-│           │       ├── PantryActivity.java
-│           │       ├── AddFoodActivity.java
-│           │       ├── EditFoodActivity.java
-│           │       ├── SuggestedRecipesActivity.java
-│           │       ├── RecipeDetailActivity.java
-│           │       ├── SettingsActivity.java
-│           │       ├── DatabaseHelper.java
-│           │       ├── FoodAdapter.java
-│           │       ├── RecipeAdapter.java
-│           │       ├── FoodItem.java
-│           │       ├── Recipe.java
-│           │       ├── RecipeIngredient.java
-│           │       └── RecipeMatcher.java
-│           │
-│           └── res
-│               ├── layout
-│               ├── drawable
-│               └── values
-│
-└── README.md
+id
+name
+quantity
+unit
+category
+expiry_date

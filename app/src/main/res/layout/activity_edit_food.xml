@@ -19,6 +19,14 @@
             android:textSize="30sp"
             android:textStyle="bold" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Update your pantry ingredient"
+            android:textColor="#BDBDBD"
+            android:textSize="15sp" />
+
         <EditText
             android:id="@+id/etEditFoodName"
             android:layout_width="match_parent"
@@ -27,7 +35,8 @@
             android:hint="Food name"
             android:textColor="#FFFFFF"
             android:textColorHint="#888888"
-            android:inputType="text" />
+            android:inputType="text"
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/etEditQuantity"
@@ -37,7 +46,8 @@
             android:hint="Quantity"
             android:textColor="#FFFFFF"
             android:textColorHint="#888888"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:padding="12dp" />
 
         <Spinner
             android:id="@+id/spinnerEditUnit"
@@ -59,7 +69,8 @@
             android:hint="Expiry date (YYYY-MM-DD)"
             android:textColor="#FFFFFF"
             android:textColorHint="#888888"
-            android:inputType="text" />
+            android:inputType="text"
+            android:padding="12dp" />
 
         <Button
             android:id="@+id/btnUpdateFood"
